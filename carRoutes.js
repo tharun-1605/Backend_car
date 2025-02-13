@@ -69,6 +69,13 @@ router.get('/cars/:location', authMiddleware, async (req, res) => {
     res.json(car);
 });
 
+router.get('/user/history', authMiddleware, async (req, res) => {
+    const userId = req.user.id; // Assuming user ID is stored in the token
+    const bookings = await Booking.find({ userId }); // Fetch bookings for the user
+    res.json(bookings);
+
+});
+
 router.post('/cars', async (req, res) => {
     const id = uuidv4();
     const { make, rating, price, location, Seats, mileage, image } = req.body; // Include image field
